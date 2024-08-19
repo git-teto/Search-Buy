@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+function accedi(){
+var clienti=localStorage.getItem('clienti');
+var clientiobj=JSON.parse(clienti);
+var email=document.getElementById('logemail').value;
+var pswd=document.getElementById('logpwd').value;
+var accesso=false;
+for(i=0;i<clientiobj.length;i++){
+if((clientiobj[i].email==email)&&(clientiobj[i].password==pswd))
+{
+accesso=true;
+sessionStorage.setItem('tok','7');// SERVE PER FAR CARICARE I PRODOTTI UNA VOLTA
+sessionStorage.setItem('primoacquisto','true');
+sessionStorage.setItem('mailutente',JSON.stringify(email));
+sessionStorage.setItem('psw',JSON.stringify(pswd));
+var carrello=new Array();//accedo e creo carrello
+sessionStorage.setItem('carrello',JSON.stringify(carrello));
+sessionStorage.setItem('utente','cliente');
+alert("Accesso riuscito! Clicca su HOME");
+window.location.href="compro.html";
+}
+}
+if(accesso==false){alert("Dati errati, reinserire email e password");}
+}
+
+function accedivenditore(){
+var venditori=localStorage.getItem('venditori');
+var venditoriobj=JSON.parse(venditori);
+var email=document.getElementById('logemail').value;
+var pswd=document.getElementById('logpwd').value;
+var accesso=false;
+for(ii=0;ii<venditoriobj.length;ii++){
+if((venditoriobj[ii].email==email)&&(venditoriobj[ii].password==pswd))
+{
+accesso=true;
+sessionStorage.setItem('mailutente',JSON.stringify(email));
+sessionStorage.setItem('psw',JSON.stringify(pswd));
+sessionStorage.setItem('utente','venditore');
+alert("Accesso riuscito!  Clicca su HOME");
+window.location.href="compro.html";
+}
+}
+if(accesso==false){alert("Dati errati, reinserire email e password");}
+}
+
+</script>
+</head>
+<body>
+
+         <div id="header">
+		  <a  class='pulsante' href="compro.html"><div  id='home' >HOME</div></a>
+		  </div>
+		 <div class='loginform'>
+		 <form>
+		
+			<div class='titolo'><strong>ACCEDI</div> </br>
+			<div>Email</div>
+		    <input type='email' name='logemail' id='logemail' required>
+		  <p>
+		  <div>Password</div>
+		  <input type='password' name='logpwd' id='logpwd'  required></br></br>
+		  <div><button onclick='accedi()'>ACCEDI CLIENTE</button></div> </br>
+		  <div><button onclick='accedivenditore()'>ACCEDI VENDITORE</button></div></br>
+		 </form>
+		 </div>
+		 
+
+</body>
+</html>

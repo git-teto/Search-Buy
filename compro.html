@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+function verificaccesso(){
+var utente=sessionStorage.getItem('utente');
+var mailutente=sessionStorage.getItem('mailutente');
+var mailutenteobj=JSON.parse(mailutente);//ottengo email da sessionstorage
+var clienti=localStorage.getItem('clienti');
+var clientiobj=JSON.parse(clienti);//scarico array clienti
+var venditori=localStorage.getItem('venditori');
+var venditoriobj=JSON.parse(venditori);//scarico array venditori
+if(mailutenteobj==null)
+{
+document.getElementById("opzioni").style.visibility='visible';
+document.getElementById("nomeutente").innerHTML="";
+document.getElementById("nomeutente").style.visibility='hidden';
+}
+if(utente=='cliente'){
+for(i=0;i<clientiobj.length;i++){ //cerco nell'array la email con cui ho loggato e scarico nome
+if((clientiobj[i].email==mailutenteobj))
+ {
+ var nomeutente1=clientiobj[i].nome;
+ }
+}
+}
+else{
+for(ii=0;ii<venditoriobj.length;ii++){ //cerco nell'array la email con cui ho loggato e scarico nome
+if((venditoriobj[ii].email==mailutenteobj))
+ {
+ var nomeutente1=venditoriobj[ii].nome;
+ }
+}
+}
+
+if(mailutenteobj!=null)
+{
+document.getElementById("opzioni").style.visibility='hidden';
+if(utente=='cliente'){
+document.getElementById("nomeutente").innerHTML="Cliente,</br>"+nomeutente1;
+document.getElementById("nomeutente").style.visibility='visible';
+}else
+{
+document.getElementById("nomeutente").innerHTML="Venditore,</br>"+nomeutente1;
+document.getElementById("nomeutente").style.visibility='visible';
+}
+}
+}
+
+
+function elencoprodotti(){
+window.location.href="prodotti.html";
+}
+
+function accediaccount(){
+var utente=sessionStorage.getItem('utente');
+if(utente=='cliente'){
+window.location.href="account.html";
+}
+else{
+window.location.href="accountvenditore.html";
+}
+}
+</script>
+</head>
+<body onload='verificaccesso()'>
+
+         <div id="header">
+		 
+		 <span id='opzioni'>
+		 <a class='pulsante' href="registrati.html"><div  id='iscriviti' >ISCRIVITI</div></a>
+		 <a id='accedi' class='pulsante' href="login.html" >ACCEDI</a>
+		 </span>
+		
+		 <span id='nomeutente' onclick='accediaccount()' >
+		 </span>
+		 
+		 </div>
+         
+         <div id="main" >
+		 <div id="main2">
+		 <strong> <span id='r1'>LA MIGLIOR QUALITA'</span></br>
+		 <span id='r2'> E </span></br> 
+		 <span id='r3'>LA MASSIMA FRESCHEZZA!</span></strong></br></br>
+		 <span id='r4'onclick='elencoprodotti()' > Vai al Catalogo <strong>> </strong></span>
+		 </div>
+		 </div>
+         
+         
+		 
+
+
+</body>
+</html>

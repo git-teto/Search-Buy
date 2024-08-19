@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+var mailutente=sessionStorage.getItem('mailutente');
+
+function scaricaordini(){
+generaheader();
+var ordini=JSON.parse(localStorage.getItem('ordini'));
+var esistealmenounordine=false;
+for(j=0;j<ordini.length;j++)
+{
+
+var ordine=ordini[j];
+var posizionemail=(ordine.length)-2;
+
+  if(ordine[posizionemail]==mailutente)
+  {
+  esistealmenounordine=true;
+ 
+ var prodotti=ordine;
+//alert("lunghezza "+prodotti.length);
+
+var tot=prodotti[prodotti.length-1];
+document.writeln("<div  style='box-sizing:border-box; font:14px Verdana ;border: solid 5px Lavender; text-transform:uppercase;margin:10px;'>");
+document.writeln("<div style='background-color: gold  ;padding:10px 10px 10px 15px;;margin:10px;' ><span ><strong>tot: <span style='color:blue;'>"+tot+".00€</span></strong>");
+document.writeln("<button onclick='annullaordine("+j+")' style='float:right;'>Annulla ordine</button></span>");
+document.writeln("</div>");
+for(i=0;i<(prodotti.length)-2;i++)
+{
+document.writeln("<div  onclick='compraprodotto("+i+")' style='margin:0px 450px 0px 300px;'>");//lo mette in mezzo
+document.writeln("<img src='"+prodotti[i].immagine+"' width='250 px' height='310 px' style='box-sizing:border-box;float:left; border: solid 5px LavenderBlush; margin 10px;'>");
+document.writeln("<div  style='box-sizing:border-box;float:rigth;height: 310px; font:14px Verdana ;border: solid 5px LavenderBlush; text-transform:uppercase;padding:30px;margin:10px;margin: 0px 0px 0px 240px;'>");
+document.writeln("<p id='nome'><strong><h3>"+prodotti[i].nome+"</h3></strong></p>");
+document.writeln("</p>");
+document.writeln("<p id='origine'>Origine: "+prodotti[i].origine+"</p>");
+document.writeln("</p>");
+document.writeln("<p id='spedizione'>Spedizione: "+prodotti[i].spedizione+"</p>");
+document.writeln("<p >Comprati: "+prodotti[i].comprati+"</p>");
+document.writeln("<p id='prezzo' style='color:blue;'><strong>"+prodotti[i].prezzo+".00€ </strong></p>");
+//document.writeln("<p id='totale'>Prezzo totale: "+prodotti[i].totale+".00€</p>");
+document.writeln("</p>");
+document.writeln("</p>");
+
+document.writeln("</p>");
+document.writeln("</div>");
+document.writeln("</div>");
+}
+document.writeln("</div>");
+  }
+}
+  if(esistealmenounordine==false)
+  {
+  document.writeln("<div style='margin:10px;'>Nessun ordine esistente</div>");
+  }
+
+}
+function generaheader(){	 		 
+document.writeln("<div style='height:40px;background-color: Turquoise  ;padding:10px;margin:10px; ' >"); 
+document.writeln( "<a style='text-decoration:none;background-color: #4169e1;border-radius:10px;margin:5px;width:90px;height:30px;float:right;box-sizing:border-box; padding-top:7px;padding-left:22px; color:white;' href='compro.html' >"); 
+document.writeln("<div >HOME</div></a>");
+document.writeln("</div >");
+document.writeln("<div style=' height:40px; background-color: GreenYellow  ;padding:10px 5px 5px 550px;box-sizing:border-box; margin:0px 10px 0px 10px;'><strong><span>I MIEI ORDINI</span></stong></div>");
+}
+
+
+
+/*function caricaordine(){
+var prodotti=ordine;
+//alert("lunghezza "+prodotti.length);
+
+var tot=prodotti[prodotti.length];
+
+document.writeln("<div id='prodotti' onclick='vaiaprodotti()'>vai a prodotti</div></br>");
+document.writeln("<div >totale speso:"+tot+".00€</div></br>");
+for(i=0;i<(prodotti.length)-2;i++)
+{
+//document.writeln("<div  onclick='compraprodotto("+i+")' style='margin:0px 450px 0px 300px;'>");//lo mette in mezzo
+document.writeln("<img src='"+prodotti[i].immagine+"' width='250 px' height='310 px' style='box-sizing:border-box;float:left; border: solid 10px brown; margin 10px;'>");
+document.writeln("<div  style='box-sizing:border-box;float:rigth;height: 310px; font:14px Verdana ;border: solid 10px brown; text-transform:uppercase;padding:30px;margin:10px;margin: 0px 0px 0px 240px;'>");
+document.writeln("<p id='nome'>Nome: "+prodotti[i].nome+"</p>");
+document.writeln("</p>");
+document.writeln("<p id='prezzo'>Prezzo all'unita: "+prodotti[i].prezzo+".00€ </p>");
+document.writeln("<p >Comprati: "+prodotti[i].comprati+"</p>");
+document.writeln("<p id='totale'>Prezzo totale: "+prodotti[i].totale+".00€</p>");
+document.writeln("</p>");
+document.writeln("<p id='origine'>Origine: "+prodotti[i].origine+"</p>");
+document.writeln("</p>");
+document.writeln("<p id='spedizione'>Spedizione: "+prodotti[i].spedizione+"</p>");
+document.writeln("</p>");
+
+document.writeln("</p>");
+document.writeln("</div>");
+document.writeln("</div>");
+}
+document.writeln("<span><button onclick='annullaordine("+j+")'>Annulla ordine</button><span>");
+}*/
+
+function annullaordine(x){
+//alert("l'ordine da annullare e' il "+x);
+var ordini=JSON.parse(localStorage.getItem('ordini'));
+ordini.splice(x,1);
+localStorage.setItem('ordini',JSON.stringify(ordini));
+window.location.href="ordini.html";
+alert("Ordine annullato!");
+}
+
+function vaiaprodotti(){
+window.location.href="compro.html";
+}
+
+</script>
+</head>
+<body onload='scaricaordini()'>
+
+<strong>Non hai mai fatto un ordine!<strong>
+
+
+</body>
+</html>

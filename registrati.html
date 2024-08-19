@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+
+if(localStorage.key(0)==null||localStorage.key(1)==null)
+{
+var clienti=new Array();
+localStorage.setItem('clienti',JSON.stringify(clienti));
+var ordini=new Array();//creo array clienti e ordini partendo da un localstorage vuoto
+localStorage.setItem('ordini',JSON.stringify(ordini));
+var venditori=new Array();//creo array venditori e ordini partendo da un localstorage vuoto
+localStorage.setItem('venditori',JSON.stringify(venditori));
+}
+
+function vaihome(){
+window.location.href="compro.html";
+}
+
+function creacliente(){
+var x=document.getElementById("nome").value;
+var y=document.getElementById("cognome").value;
+var m=document.getElementById("email").value;
+var f=document.getElementById("password").value;
+
+if((x=="")||(y=="")||(m=="")||(f=="")||(f.length<6))
+{
+alert("Non tutti i campi necessari sono stati compilati oppure la password e' corta ");
+}
+else
+{
+
+var esistentemail=false;
+var clienti=localStorage.getItem('clienti'); //scarico clienti in formato stringa dal localstorage
+var clientiobj=JSON.parse(clienti); //lo strasformo in oggetto
+for(g=0;g<clientiobj.length;g++){
+if(m==clientiobj[g].email){esistentemail=true;}
+}
+if(esistentemail==true){
+alert("Email già usata, utilizzarne un'altra!");
+}
+else{
+alert("Iscrizione riuscita! Clicca su Home");
+var cliente={'nome':null,'cognome':null,'nascita':null,'email':null,'password':null,'pagamentoprefe':null,'spam':null};
+var clientevuoto=cliente;
+cliente.nome=document.getElementById("nome").value;
+cliente.cognome=document.getElementById("cognome").value;
+cliente.nascita=document.getElementById("nascita").value;
+cliente.email=document.getElementById("email").value;
+cliente.pagamentoprefe=document.getElementById("pagamento").value;
+cliente.spam=document.getElementById("liberatoria").value;
+cliente.password=document.getElementById("password").value;
+
+var length=clientiobj.length;
+for(i=0;i<length&&clientiobj[i].email!=null;i++){
+}
+
+clientiobj[i]=cliente;
+localStorage.setItem('clienti',JSON.stringify(clientiobj));
+sessionStorage.setItem('mailutente',JSON.stringify(cliente.email));
+sessionStorage.setItem('psw',JSON.stringify(cliente.password));
+sessionStorage.setItem('utente','cliente');
+var carrello=new Array();//accedo registrandomi e creo carrello
+sessionStorage.setItem('carrello',JSON.stringify(carrello));
+sessionStorage.setItem('tok','7');// SERVE PER FAR CARICARE I PRODOTTI UNA VOLTA
+sessionStorage.setItem('primoacquisto','true');
+window.location.href="compro.html";
+vaihome();
+}
+}
+}
+
+</script>
+
+</head>
+<body>
+
+		 <div id="header">
+		 <a  class='pulsante' href="compro.html"><div  id='home' >HOME</div></a>
+		 </div>
+       
+		  <form class='loginform'>
+		  <div class='titolo'><strong>NUOVO CLIENTE</div> </br>
+		  <a  href="regvenditore.html"><div class='bordo'>Sono un venditore</div></a></br></br>
+		  <div>Nome*</div>
+		  <input type='text' name='nome' id='nome' required>
+		  <p>
+		  <div>Cognome*</div>
+		  <input type='text' name='cognome'id='cognome'  required>
+		  <p>
+		  <div>Data di nascita</div>
+		  <input type='date'id='nascita'  >
+		  <p>
+		  <div>E-mail*</div>
+		  <input type='email' name='email' id='email' required>
+		  <p>
+		  <div>Password*</div>
+		  <input type='password' placeholder='Almeno 6 caratteri' id='password' required>
+		  <p>
+		  <div>Pagamento preferito</div>
+		   <select name='pagamento' id='pagamento' >
+		     <option value='cc'>Carta di Credito</option>
+			 <option value='contrassegno'>Contrassegno</option>
+			 <option value='Paypal'>Paypal</option>
+			</select>
+		  </strong>
+		 <span>
+		 <h6>I campi contrassegnati con * sono obbligatori</h6>
+		 </span>
+		 <input type='checkbox' name='liberatoria' id='liberatoria' > <font size='2'>Voglio lo spam</font>
+		 </br>
+		 </br>
+		 <button onclick='creacliente()'>ISCRIVITI</button>
+		 </form> 
+	  
+</body>
+</html>

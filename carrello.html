@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+
+function compra(){
+var ordini=JSON.parse(localStorage.getItem('ordini'));
+var lunghezzaordini=ordini.length;
+var ordine=JSON.parse(sessionStorage.getItem('carrello'));//ordine è il carrello
+ordine[ordine.length]=sessionStorage.getItem('mailutente');
+ordine[ordine.length]=totalespesa();
+ordini[lunghezzaordini]=ordine;
+localStorage.setItem('ordini',JSON.stringify(ordini));
+var carrello=new Array();//accedo e creo carrello
+sessionStorage.setItem('carrello',JSON.stringify(carrello));
+sessionStorage.setItem('primoacquisto','true');
+alert("Comprato!");
+window.location.href="compro.html";
+
+}
+
+function totalespesa(){
+var carrello=JSON.parse(sessionStorage.getItem('carrello'));
+var totalespesa=0;
+for(var i=0;i<carrello.length;i++)
+{
+totalespesa=totalespesa+carrello[i].totale;
+}
+return totalespesa;
+}
+
+function caricacarrello(){
+var prodotti=JSON.parse(sessionStorage.getItem('carrello'));
+//alert("lunghezza "+prodotti.length);
+if(prodotti.length==0){
+generaheader();
+document.writeln("<p style='margin:10px;'><strong>Non hai acquisti nel carrello!</p>");
+}
+else
+{
+var tot=totalespesa();
+generaheader();
+document.writeln("<div style='height:20px;background-color: gold ;padding:10px; margin:10px;'>");
+document.writeln("<span style='float:right;'><button onclick='compra()'>Compra</button></span>");
+document.writeln("<span style='float:right;margin-right:10px;'><strong>TOTALE: "+tot+".00€</span>");
+document.writeln("</div></br>");
+for(i=0;i<prodotti.length;i++)
+{
+document.writeln("<div  onclick='compraprodotto("+i+")' style='margin:0px 450px 0px 300px;'>");//lo mette in mezzo
+document.writeln("<img src='"+prodotti[i].immagine+"' width='250 px' height='310 px' style='box-sizing:border-box;float:left; border: solid 5px LavenderBlush; margin 10px;'>");
+document.writeln("<div  style='box-sizing:border-box;float:rigth;height: 310px; font:14px Verdana ;border: solid 5px LavenderBlush; text-transform:uppercase;padding:30px;margin:10px;margin: 0px 0px 0px 240px;'>");
+document.writeln("<p id='nome'><strong><h3>"+prodotti[i].nome+"</h3></strong></p>");
+document.writeln("<p id='origine'><strong>Origine:</strong> "+prodotti[i].origine+"</p>");
+document.writeln("<p id='spedizione'><strong>Spedizione:</strong> "+prodotti[i].spedizione+"</p>");
+document.writeln("<p id='prezzo'><strong>Prezzo all'unita:</strong> "+prodotti[i].prezzo+".00€ </p>");
+document.writeln("<p ><strong>Comprati:</strong> "+prodotti[i].comprati+"</p>");
+document.writeln("<p id='totale' ><strong>TOT: <span style='color:blue;'>"+prodotti[i].totale+".00€</span></strong></p>");
+document.writeln("<p><button onclick='annulla("+i+")' style='float:right;'>Rimuovi</button></p>");
+document.writeln("</div>");
+document.writeln("</div>");
+}
+}
+}
+
+function annulla(i){
+//alert("annullo il "+i);
+var carr=JSON.parse(sessionStorage.getItem('carrello'));
+carr.splice(i,1);
+sessionStorage.setItem('carrello',JSON.stringify(carr));
+if(carr.length==0){
+sessionStorage.setItem('primoacquisto','true');
+}
+alert("Rimosso!");
+window.location.href="carrello.html";
+}
+
+function generaheader(){	 		 
+document.writeln("<div style='height:40px;background-color: Turquoise  ;padding:10px;margin:10px;' >"); 
+document.writeln("<a style='text-decoration:none; background-color: #4169e1;border-radius:10px; margin:5px;width:90px;height:30px;float:right;box-sizing:border-box; padding-top:7px;padding-left:22px; color:white;' href='compro.html' ><div>HOME</div></a>");
+document.writeln( "<a style='text-decoration:none;background-color: #4169e1;border-radius:10px;margin:5px;width:90px;height:30px;float:right;box-sizing:border-box; padding-top:7px;padding-left:2px; color:white;' href='prodotti.html' >"); 
+document.writeln("<div >CATALOGO</div></a>");
+document.writeln("</div >");
+}
+
+</script>
+</head>
+<body onload='caricacarrello()'>
+<div id="header">
+		 <a  class='pulsante' href="compro.html"><div  id='home' >HOME</div></a>
+		<a  class='pulsante' href="prodotti.html"><div  id='catalogo' >CATALOGO</div></a>
+</div>
+		<span class='messaggio'> <strong>Non hai acquisti nel carrello!<strong></span>
+
+</body>
+</html>

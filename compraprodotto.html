@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+function torna(x){
+window.location.href="prodotti.html";
+}
+function generaheader(){	 		 
+document.writeln("<div style='height:40px;background-color: Turquoise  ;padding:10px;margin:10px;' >"); 
+document.writeln("<a style='text-decoration:none; background-color: #4169e1;border-radius:10px; margin:5px;width:90px;height:30px;float:right;box-sizing:border-box; padding-top:7px;padding-left:22px; color:white;' href='compro.html' ><div>HOME</div></a>");
+document.writeln( "<a style='text-decoration:none;background-color: #4169e1;border-radius:10px;margin:5px;width:90px;height:30px;float:right;box-sizing:border-box; padding-top:7px;padding-left:2px; color:white;' href='carrello.html' >"); 
+document.writeln("<div >CARRELLO</div></a>");
+document.writeln("</div >");
+}
+function caricaprodotto(){
+generaheader();
+var istr=sessionStorage.getItem('i');
+i=JSON.parse(istr);
+var prodottistr=localStorage.getItem('prodotti');
+var prodotti=JSON.parse(prodottistr);
+document.writeln("<div  style='margin:0px 450px 0px 300px;'>");//lo mette in mezzo
+document.writeln("<img src='"+prodotti[i].immagine+"' width='250 px' height='310 px' style='box-sizing:border-box;float:left; border: solid 5px LavenderBlush; margin 10px;'>");
+document.writeln("<div  style='box-sizing:border-box;float:rigth;height: 310px; font:14px Verdana ;border: solid 5px LavenderBlush; text-transform:uppercase;padding:30px;margin:10px;margin: 0px 0px 0px 240px;'>");
+document.writeln("<p id='nome'><strong><h3>"+prodotti[i].nome+"</h3></strong></p>");
+document.writeln("</p>");
+document.writeln("<p id='colore'><strong>Colore:</strong> "+prodotti[i].colore+"</strong></p>");
+document.writeln("</p>");
+document.writeln("<p id='origine'><strong>Origine:</strong> "+prodotti[i].origine+"</p>");
+document.writeln("</p>");
+document.writeln("<p id='spedizione'><strong>Spedizione:</strong> "+prodotti[i].spedizione+"</p>");
+document.writeln("</p>");
+document.writeln("<p id='disponibilta'><strong>Disponibilità:</strong> "+prodotti[i].disponibilita+"</p>");
+document.writeln("</p>");
+document.writeln("<p id='prezzo' style='color:blue;'><strong>"+prodotti[i].prezzo+".00€ </strong></p>");
+document.writeln("<span><input id='rating' name='rating' type='number' min='0'  max='"+prodotti[i].disponibilita+"' ></span>");
+document.writeln("<span><button onclick='carrellof("+i+")'>Aggiungi al carrello</button><span>");
+
+document.writeln("<span><button onclick='torna()'>indietro</button><span>");
+document.writeln("</div>");
+document.writeln("</div>");
+}
+
+function carrellof(i){
+var hi=document.getElementById('rating').value;
+var indice=i;
+var y=JSON.parse(hi);
+if(y==0||y==""){}
+else{
+var carrellostr=sessionStorage.getItem('carrello');
+var carrellobj=JSON.parse(carrellostr);// scarico carrello
+var prodottistr=localStorage.getItem('prodotti');
+var prodottiobj=JSON.parse(prodottistr);// scarico elenco prodotti
+var primoacquisto=JSON.parse(sessionStorage.getItem('primoacquisto'));
+var lunghezza=carrellobj.length;
+var disponibilita=JSON.parse(prodottiobj[indice].disponibilita);
+if(disponibilita<y){alert('Hai scelto più prodotti della disponibilita');}
+else {
+if(primoacquisto==true)
+{
+carrellobj[lunghezza]=prodottiobj[indice];
+carrellobj[lunghezza].comprati=y;
+var disponibilita=(JSON.parse(prodottiobj[indice].disponibilita)-y);
+prodottiobj[indice].disponibilita=disponibilita;
+localStorage.setItem('prodotti',JSON.stringify(prodottiobj));
+var prezzo=JSON.parse(carrellobj[lunghezza].prezzo);
+//alert("prezzo= "+prezzo);
+alert("Aggiunto al carrello!");
+var totale=y*prezzo;
+carrellobj[lunghezza].totale=totale;
+sessionStorage.setItem('primoacquisto','false');
+}
+else{
+var presente=false;
+for(k=0;k<lunghezza;k++){//gira carrello per vedere se c'è gia un prodotto, k indice elemnti carrello
+if(prodottiobj[indice].nome==carrellobj[k].nome)
+{
+var comprati=JSON.parse(carrellobj[k].comprati);
+comprati=comprati+y;
+carrellobj[k].comprati=comprati;
+var totale=JSON.parse(carrellobj[k].totale);
+var disponibilita=(JSON.parse(prodottiobj[indice].disponibilita)-y);
+prodottiobj[indice].disponibilita=disponibilita;
+localStorage.setItem('prodotti',JSON.stringify(prodottiobj));
+var prezzo=JSON.parse(carrellobj[k].prezzo);
+//alert("prezzo= "+prezzo);
+alert("Aggiunto al carrello!");
+totale=comprati*prezzo;
+carrellobj[k].totale=totale;
+presente=true;
+}
+if(presente==false&&k==lunghezza-1)
+{
+carrellobj[k+1]=prodottiobj[indice];
+carrellobj[k+1].comprati=y;
+var disponibilita=(JSON.parse(prodottiobj[indice].disponibilita)-y);
+prodottiobj[indice].disponibilita=disponibilita;
+localStorage.setItem('prodotti',JSON.stringify(prodottiobj));
+var prezzo=JSON.parse(carrellobj[k+1].prezzo);
+//alert("prezzo= "+prezzo);
+alert("Aggiunto al carrello");
+var totale=y*prezzo;
+carrellobj[lunghezza].totale=totale;
+}
+}
+}
+}
+sessionStorage.setItem('carrello',JSON.stringify(carrellobj));
+}
+
+}
+</script>
+</head>
+<body onload='caricaprodotto()'>
+
+
+</body>
+</html>

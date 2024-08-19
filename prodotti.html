@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+
+function generaheader(){	 		 
+document.writeln("<div style='height:40px;background-color: Turquoise  ;padding:10px;margin:10px;' >"); 
+document.writeln("<a style='text-decoration:none; background-color: #4169e1;border-radius:10px; margin:5px;width:90px;height:30px;float:right;box-sizing:border-box; padding-top:7px;padding-left:22px; color:white;' href='compro.html' ><div>HOME</div></a>");
+document.writeln( "<a style='text-decoration:none;background-color: #4169e1;border-radius:10px;margin:5px;width:90px;height:30px;float:right;box-sizing:border-box; padding-top:7px;padding-left:2px; color:white;' href='carrello.html' >"); 
+document.writeln("<div >CARRELLO</div></a>");
+document.writeln("</div >");
+}
+
+function compraprodotto(x){
+sessionStorage.setItem('i',JSON.stringify(x));
+var utente=sessionStorage.getItem('utente');
+if(utente!=null){
+   if(utente=="venditore"){
+   alert("Non puoi comprare con un account da VENDITORE!");
+   }
+   else
+   {
+      window.location.href="compraprodotto.html";
+   }
+}
+else{
+alert("Devi accedere per poter comprare!");
+}
+}
+
+function caricaprodotti(){
+var tok=JSON.parse(sessionStorage.getItem('tok'));
+if(tok!=1)//SERVE PER FAR CARICARE I PRODOTTI UNA SOLA VOLTA
+{
+var prodotti= [{"totale":"","tipologia":"frutta", "nome":"mela", "immagine":"mela.jpg", "colore":"rosso", "prezzo":"2", "origine":"lombardia", "spedizione":"in giornata", "disponibilita":"30","comprati":"0"},
+               {"totale":"","tipologia":"verdura", "nome":"pomodoro", "immagine":"pomodoro.jpg", "colore":"rosso", "prezzo":"1", "origine":"piemonte", "spedizione":"tra 3 giorni", "disponibilita":"300","comprati":"0"},
+			   {"totale":"","tipologia":"verdura", "nome":"piselli", "immagine":"piselli.jpg", "colore":"verde", "prezzo":"4", "origine":"abruzzo", "spedizione":"tra 5 giorni", "disponibilita":"150","comprati":"0"},
+			   {"totale":"","tipologia":"frutta", "nome":"pesca", "immagine":"pesca.jpg", "colore":"rosa", "prezzo":"2", "origine":"lazio", "spedizione":"in giornata", "disponibilita":"3000","comprati":"0"},
+			   {"totale":"","tipologia":"frutta", "nome":"pera", "immagine":"pera.jpg", "colore":"verde", "prezzo":"1", "origine":"veneto", "spedizione":"tra 5 giorni", "disponibilita":"200","comprati":"0"},
+			   {"totale":"","tipologia":"verdura", "nome":"patata", "immagine":"patata.jpg", "colore":"giallo", "prezzo":"8", "origine":"campania", "spedizione":"in giornata", "disponibilita":"2000","comprati":"0"},
+			   {"totale":"","tipologia":"verdura", "nome":"melanzana", "immagine":"melanzana.jpg", "colore":"viola", "prezzo":"4", "origine":"molise", "spedizione":"non disponibile", "disponibilita":"0","comprati":"0"},
+			   {"totale":"","tipologia":"frutta", "nome":"arancia", "immagine":"arancia.jpg", "colore":"arancione", "prezzo":"2", "origine":"sicilia", "spedizione":"in giornata", "disponibilita":"1500","comprati":"0"},
+			   {"totale":"","tipologia":"verdura", "nome":"lattuga", "immagine":"lattuga.jpg", "colore":"verde", "prezzo":"1", "origine":"lombardia", "spedizione":"tra 3 giorni", "disponibilita":"1560","comprati":"0"},
+			   {"totale":"","tipologia":"frutta", "nome":"limone", "immagine":"limone.jpg", "colore":"giallo", "prezzo":"8", "origine":"sicilia", "spedizione":"tra 5 giorni", "disponibilita":"6000","comprati":"0"}
+			  ]
+localStorage.setItem('prodotti',JSON.stringify(prodotti));
+tok=1;
+sessionStorage.setItem('tok',JSON.stringify(tok)); 
+}
+var prodotti=JSON.parse(localStorage.getItem('prodotti'));
+generaheader();
+for(i=0;i<prodotti.length;i++)
+{
+document.writeln("<div  onclick='compraprodotto("+i+")' style='margin:0px 450px 0px 300px;'>");//lo mette in mezzo
+document.writeln("<img src='"+prodotti[i].immagine+"' width='250 px' height='310 px' style='box-sizing:border-box;float:left; border: solid 5px LavenderBlush ; margin 10px;'>");
+document.writeln("<div  style='box-sizing:border-box;float:rigth;height: 310px; font:14px Verdana ;border: solid 5px LavenderBlush ; text-transform:uppercase;padding:30px;margin:10px;margin: 0px 0px 0px 240px;'>");
+document.writeln("<p id='nome'><strong><h3>"+prodotti[i].nome+"</h3></strong></p>");
+document.writeln("</p>");
+document.writeln("<p id='colore'><strong>Colore</strong>: "+prodotti[i].colore+"</p>");
+document.writeln("</p>");
+document.writeln("<p id='origine'><strong>Origine</strong>: "+prodotti[i].origine+"</p>");
+document.writeln("</p>");
+//document.writeln("<p id='spedizione'>Spedizione: "+prodotti[i].spedizione+"</p>");
+//document.writeln("</p>");
+//document.writeln("<p id='disponibilta'>Disponibilità: "+prodotti[i].disponibilita+"</p>");
+document.writeln("<p id='prezzo' style='color:blue;'><strong>"+prodotti[i].prezzo+".00€ </strong></p>");
+document.writeln("</p>");
+document.writeln("</div>");
+document.writeln("</div>");
+}
+}
+
+</script>
+</head>
+<body onload='caricaprodotti()'>
+
+
+</body>
+</html>

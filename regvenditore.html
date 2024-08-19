@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+/*var presente=false;
+for(indice=0;indice<localStorage.length;indice++){
+if(localStorage.key(indice)==venditori)
+{
+presente=true;
+}
+}
+if(!presente){
+var venditori=new Array();
+localStorage.setItem('venditori',JSON.stringify(venditori));
+}*/
+
+function creavenditore(){
+
+var x=document.getElementById("nome").value;
+var y=document.getElementById("cognome").value;
+var m=document.getElementById("email").value;
+var f=document.getElementById("password").value;
+var xx=document.getElementById("piva").value;
+var yy=document.getElementById("telefono").value;
+var mm=document.getElementById("attivit").value;
+
+
+if((x=="")||(y=="")||(m=="")||(f=="")||(f.length<6)||(xx=="")||(yy=="")||(mm==""))
+{
+alert("Non tutti i campi necessari sono stati compilati oppure la password e' corta ");
+}
+else
+{
+
+var esistentemail=false;
+var venditori=localStorage.getItem('venditori'); //scarico vednitori in formato stringa dal localstorage
+var venditoriobj=JSON.parse(venditori); //lo strasformo in oggetto
+for(g=0;g<venditoriobj.length;g++){
+if(m==venditoriobj[g].email){esistentemail=true;}
+}
+if(esistentemail==true){
+alert("Email già usata, utilizzarne un'altra!");
+}
+else{
+
+var venditore={'nome':null,'cognome':null,'date':null,'email':null,'password':null,'piva':null,'telefono':null,'attivit':null,'urlsito':null,'liberatoria':null};
+var venditorevuoto=venditore;
+venditore.nome=document.getElementById("nome").value;
+venditore.cognome=document.getElementById("cognome").value;
+venditore.nascita=document.getElementById("date").value;
+venditore.email=document.getElementById("email").value;
+venditore.piva=document.getElementById("piva").value;
+venditore.telefono=document.getElementById("telefono").value;
+venditore.attivit=document.getElementById("attivit").value;
+venditore.urlsito=document.getElementById("urlsito").value;
+venditore.spam=document.getElementById("liberatoria").value;
+venditore.password=document.getElementById("password").value;
+
+var length=venditoriobj.length;
+
+for(iii=0;iii<length&&venditoriobj[iii].email!=null;iii++){
+}
+alert("la lunghezza di iii e "+iii);
+venditoriobj[iii]=venditore;
+alert("venditori"+venditoriobj[iii]);
+localStorage.setItem('venditori',JSON.stringify(venditoriobj));
+sessionStorage.setItem('utente','venditore');
+sessionStorage.setItem('mailutente',JSON.stringify(venditore.email));
+sessionStorage.setItem('psw',JSON.stringify(venditore.password));
+alert("Iscrizione riuscita!");
+//window.location.href="compro.html";
+
+}
+}
+}
+
+
+
+</script>
+</head>
+<body>
+         <div id="header">
+		 <a  class='pulsante' href="compro.html"><div  id='home' >HOME</div></a>
+       </div>
+	   
+		  <form class='loginform'>
+		  <div class='titolo'><strong>NUOVO VENDITORE</div></br>
+		    <a  href="registrati.html"><div class='bordo'  >Sono un cliente</div></a></br></br>
+			<div>Nome*</div>
+		    <input type='text' name='nome' id='nome'required>
+		  <p>
+		  <div>Cognome*</div>
+		  <input type='text' name='cognome'required id='cognome'>
+		  <p>
+		  <div>Data di nascita</div>
+		  <input type='date' id='date'>
+		  <p>
+		  <div>E-mail*</div>
+		  <input type='email' name='email' required id='email'>
+		  <p>
+		  <div>Password*</div>
+		  <input type='password' placeholder='Almeno 6 caratteri' id='password' required>
+		  <p>
+		  <div>Partita iva*</div>
+		  <input type='text' name='piva' required id='piva'>
+		  <p>
+		  <div>Telefono*</div>
+		  <input type='tel' name='telefono' required id='telefono'>
+		  <p>
+		  <div>Tipo di attività*</div>
+		  <input type='text' name='attivit'required id='attivit'>
+		  <p>
+		  <div>Sito della propria attività</div>
+		  <input type='url' name='urlsito' id='urlsito'>
+		  </strong>
+		 <p>
+		 <h6>I campi contrassegnati con * sono obbligatori</h6>
+		 <p>
+		 
+		 <input type='checkbox' name='liberatoria' id='liberatoria'> <font size='2'>Voglio lo spam</font>
+		 
+		 </br>
+		 </br>
+		 <div><button onclick='creavenditore()'> ISCRIVITI </button></div>
+		 </form>
+</body>
+</html>

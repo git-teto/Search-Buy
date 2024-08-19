@@ -1,0 +1,138 @@
+ 
+ a:visited{color:black;}
+ a{text-decoration:none;
+  
+   }
+ a:hover{opacity:0.7;}
+ 
+ .messaggio{padding-left:10px; }
+
+div.prodotto{float:rigth;font:18px Verdana; }
+.immagine{
+float:left;}
+
+.pulsantehome{
+background-color: #4169e1;
+border-radius:10px;
+color:white;
+padding: 7px;
+position:relative;
+top: 10px;
+}
+
+.pulsante{
+background-color: #4169e1;
+border-radius:10px;
+margin:5px;
+width:90px;
+height:30px;
+float:right;
+box-sizing:border-box;
+}
+.bordo{border:1px solid pink;
+       padding-left:8px;
+	   padding-right:8px;
+	   border-radius:20px;
+	   width: 70px;
+	   background-color:whitesmoke;
+	   display: inline;
+	   }
+	   
+.titolo{font:18px Verdana;}
+.loginform{
+	font:13px Verdana;
+	border-radius:5px;
+	border:solid 1px pink;
+	padding:20px;
+	margin:20px 0px 0px 530px;
+	width:300px;
+	height:auto ;
+	box-sizing:border-box;
+	}
+.spazio{
+	margin-top:2px;
+}
+.spazio2{
+	margin-top:5px;
+	margin-right:5px;
+}
+
+#accedi{
+	padding-top:6px;
+    padding-left:14px; color:white;
+}
+#home{
+	padding-top:7px;
+    padding-left:22px; color:white;
+	
+}
+#catalogo{
+	padding-top:7px;
+    padding-left:2px; color:white;
+}
+#iscriviti{
+	padding-top:6px;
+    padding-left:8px; color:white;
+}
+#nomeutente{
+font:13px Verdana; 
+color:white;
+padding-top:2px;
+padding-left:13px; 
+background-color: #4169e1;
+border-radius:10px;
+margin:5px;
+width:90px;
+height:35px;
+box-sizing:border-box;
+z-index:2;
+right:20px;
+position:absolute;
+	}
+	
+	#pannello{ left:10px; 
+	margin: 100px 0px 0px 50px;
+	float:left;
+	visibility:hidden;
+	}
+
+
+
+ #header {
+height:40px;
+background-color: Turquoise  ;
+padding:10px;
+margin:10px;
+}
+
+#main {
+box-sizing:border-box;
+margin:10px;
+ width: 1310px; 
+ height: 600px;
+ background:url("imghome.jpg");
+ background-repeat: no-repeat;
+ background-size: cover; 
+padding: 120px 0px 0px 400px;
+
+}
+
+#main2{
+	opacity:0.8;
+	background-color:white;
+     height:300px;
+	 width:500px;
+	 padding: 80px 0px 0px 60px;
+	 box-sizing:border-box;
+	 font:25px Verdana; 
+	 border-radius:30px;
+}
+#r1{margin-left:40px;}
+#r2{margin-left:181px;}
+#r3{margin-left:10px;}
+#r4{margin-left:100px;
+    
+    font:20px Verdana;
+   }
+   #eliacc{margin-left:90px;}
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<LINK href="stilecompro.css"  rel=stylesheet>
+<script language='javascript'>
+var mailutente=sessionStorage.getItem('mailutente');
+var mailutenteobj=JSON.parse(mailutente);//ottengo email da sessionstorage
+var clienti=localStorage.getItem('clienti');
+var clientiobj=JSON.parse(clienti);//scarico array clienti
+function vaihome(){
+window.location.href="compro.html";
+}
+function impostadati(){
+for(i=0;(i<clientiobj.length);i++){ //cerco nell'array la email con cui ho loggato 
+if((clientiobj[i].email==mailutenteobj))
+ {
+document.getElementById("nome").innerHTML="<strong>Nome: </strong>"+clientiobj[i].nome;
+document.getElementById("cognome").innerHTML="<strong>Cognome: </strong>"+clientiobj[i].cognome;
+document.getElementById("nascita").innerHTML="<strong>Data di nascita:</strong> "+clientiobj[i].nascita;
+document.getElementById("email").innerHTML="<strong>Email:</strong> "+clientiobj[i].email;
+document.getElementById("pagamento").innerHTML="<strong>Metodo di pagamento:</strong> "+clientiobj[i].pagamentoprefe;
+document.getElementById("password").innerHTML="<strong>Password:</strong> "+clientiobj[i].password;
+j=i;
+ }
+}
+}
+
+function modifica(x){
+ o=x;
+if(document.getElementById("pannello").style.visibility=='visible'){
+document.getElementById("pannello").style.visibility='hidden';
+}
+else{
+document.getElementById("pannello").style.visibility='visible';
+document.getElementById("valore").innerHTML=" '"+o;
+}
+}
+
+function fatto(){
+
+var cambio=document.getElementById('frmvariabile').value;
+var cliente=clientiobj[j];
+if(cambio==""){}else{
+sessionStorage.setItem("cognome",JSON.stringify(cliente.cognome));
+sessionStorage.setItem("email",JSON.stringify(cliente.email));
+sessionStorage.setItem("nascita",JSON.stringify(cliente.nascita));
+sessionStorage.setItem("nome",JSON.stringify(cliente.nome));
+sessionStorage.setItem("pagamentoprefe",JSON.stringify(cliente.pagamentoprefe));
+sessionStorage.setItem("password",JSON.stringify(cliente.password));
+sessionStorage.setItem("spam",JSON.stringify(cliente.spam));
+sessionStorage.setItem(o,JSON.stringify(cambio));
+
+cliente.cognome=JSON.parse(sessionStorage.getItem("cognome"));
+cliente.email=JSON.parse(sessionStorage.getItem("email"));
+cliente.nascita=JSON.parse(sessionStorage.getItem("nascita"));
+cliente.nome=JSON.parse(sessionStorage.getItem("nome"));
+cliente.pagamentoprefe=JSON.parse(sessionStorage.getItem("pagamentoprefe"));
+cliente.password=JSON.parse(sessionStorage.getItem("password"));
+cliente.spam=JSON.parse(sessionStorage.getItem("spam"));
+clientiobj[j]=cliente;
+localStorage.setItem('clienti',JSON.stringify(clientiobj));
+vaihome();}
+}
+function esci(){
+sessionStorage.clear();
+alert("Arrivederci!");
+window.location.href="compro.html";
+}
+function eliminaaccount(){
+var cliente={'nome':null,'cognome':null,'nascita':null,'email':null,'password':null,'pagamentoprefe':null,'spam':null};
+clientiobj[j]=cliente;
+localStorage.setItem('clienti',JSON.stringify(clientiobj));
+alert("Account eliminato!");
+esci();
+}
+
+
+</script>
+
+</head>
+<body onload='impostadati()'>
+
+		 <div id="header">
+		 <a  class='pulsante' href="compro.html"><div  id='home' >HOME</div></a>
+		 </div>
+       
+	   <div class='loginform' id='pannello' >
+	   <strong>Cambia:</strong><span id='valore'></span>' </br>
+	   <span id='formvariabile'><input type='text' name='frmvariabile' id='frmvariabile' ></span></br>
+	   <button class='spazio2' onclick='fatto()'>Fatto</button><button class='spazio2'  onclick='modifica()'>Chiudi</button>
+	   </div>
+	   
+	   <div class='loginform'>
+		  <div class='titolo'><strong>Il mio account</strong></div> </br>
+		   <a  href="carrello.html"><div class='bordo'><span>Carrello</span></div></a>
+		   <a  href="ordini.html"><div class='bordo'><span>Ordini</span></div></a></br></br>
+		  
+		  <div id='nome' > </div ><button class='spazio' onclick='modifica("nome")'>Modifica</button>
+		  <p>
+		  <div id='cognome'   ></div><div><button class='spazio' onclick='modifica("cognome")'>Modifica</button></div>
+		  <p>
+		  <div id='nascita' ></div><div><button class='spazio' onclick='modifica("nascita")'>Modifica</button></div>
+		  <p>
+		  <div id='email' ></div><div><button class='spazio' onclick='modifica("email")'>Modifica</button></div>
+		  <p>
+		  <div id='password'  ></div><div><button class='spazio' onclick='modifica("password")'>Modifica</button></div>
+		  <p>
+		  <div id='pagamento' ></div><div><button class='spazio' onclick='modifica("pagamento")'>Modifica</button></div>
+		  <p>
+		  <div><strong><a onclick='esci()'>Esci</a>
+		  <a onclick='eliminaaccount()' id='eliacc'>Elimina Account</a></strong>
+		  </div>
+		  
+	   </div>
+</body>
+</html>
