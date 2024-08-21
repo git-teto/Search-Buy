@@ -7,7 +7,7 @@ Il progetto si pone l’obiettivo di sviluppare l’applicazione web **Search&Bu
 
 ### Gestione dei prodotti
 
-Questo scenario riguarda la gestione del ciclo di vita dei prodotti, dalla pubblicazione alla vendita. Gli utenti venditori devono poter:
+Questo scenario riguarda la gestione del ciclo di vita dei prodotti, dalla pubblicazione alla vendita. Gli utenti venditori possono:
 
 - Registrarsi all'applicazione
 - Modificare i propri dati/preferenze
@@ -39,7 +39,7 @@ Per ogni prodotto, le informazioni da gestire includono:
 
 ### Gestione del carrello
 
-Questo scenario riguarda la gestione delle attività dei clienti all'interno di un'applicazione di e-commerce. I clienti devono poter:
+Questo scenario riguarda la gestione delle attività dei clienti all'interno di un'applicazione di e-commerce. I clienti  possono:
 
 - Registrarsi all'applicazione
 - Modificare i propri dati/preferenze
